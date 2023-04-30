@@ -1,0 +1,24 @@
+<div class="box">
+    <input class="numberInput" type="number" />
+    <button class="button">Submit</button>
+    <h1 class="text"></h1>
+</div>
+
+<script>
+    const numberInput = document.querySelector('.numberInput');
+    const box = document.querySelector('.box');
+    const button = document.querySelector('.button')
+    const text = document.querySelector(".text")
+
+    button.onclick = () => {
+        let num = numberInput.valueAsNumber;
+        const solution = (num, result = "", i = 0) => {
+            if (num <= 0) { return result }
+            if (i == num) { return result }
+            result = result + "Hello";
+            return solution(num, result, i + 1);
+        }
+        text.innerText = solution(num);
+    }
+
+</script>

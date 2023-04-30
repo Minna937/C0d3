@@ -1,0 +1,49 @@
+<!-- <div class="allMessages"> -->
+<h1 class="first"></h1>
+<input class="input" type="text" />
+<button class="button" type="submit">submit</button>
+<h1 class="text"></h1>
+<!-- </div> -->
+
+
+<script>
+    const input = document.querySelector(".input");
+    const button = document.querySelector(".button");
+    const text = document.querySelector(".text")
+    const first = document.querySelector(".first")
+    // const allMessages = document.querySelector(".allMessages")
+
+
+    button.onclick = () => {
+        let str = input.value;
+        // function type(str) {
+
+        //     let result = "";
+        //     for (let i = 0; i < str.length; i++) {
+        //         setTimeout(() => {
+        //             result = result + str[i];
+        //             text.innerText = result;
+        //         }, 500 * (i + 1));
+        //     }
+        // }
+
+        const key = (str, i = 0, result = "") => {
+
+            if (i === str.length) {
+                first.innerText = result;
+                return
+            }
+            result = result + str[i];
+            setTimeout(() => {
+                text.innerText = result;
+            }, 200 * (i + 1))
+            return key(str, i + 1, result);
+
+        }
+
+
+
+        button.onclick = key(str);
+    }
+
+</script>

@@ -1,0 +1,38 @@
+<div class="box1">
+    <button class="firstButton">Start</button>
+</div>
+
+<script>
+    const box1 = document.querySelector('.box1')
+    let button1 = document.querySelector('.firstButton')
+
+
+    const change = () => {
+
+            box1.innerHTML = `
+    <div class="container">
+    <input class="inputText" type="text" />
+    <button class="secondButton">Cancel</button>
+    </div>`
+    const box = document.querySelector('.container')
+        const button = document.querySelector('.secondButton')
+
+        button.onclick = () => {
+            box.innerHTML = `<div class="box1">
+    <button class="firstButton">Start</button>
+</div>`
+
+            button1 = document.querySelector('.firstButton')
+
+            button1.onclick = change
+        }
+
+
+    }
+    button1.onclick = change
+
+      // When you click the button, its onclick function will replace
+      //   button element inside the box with the new innerHtml property.
+      // Now if you click the button again, nothing happens.
+
+</script>

@@ -1,0 +1,69 @@
+<h1 class="text"></h1>
+<button class="button" type="submit">Start</button>
+<button class="pause" type="submit">Pause</button>
+<button class="stopbtn" type="submit">Stop</button>
+
+<script>
+    const text = document.querySelector(".text");
+    const button = document.querySelector(".button");
+    const pause = document.querySelector(".pause");
+    const stopbtn = document.querySelector(".stopbtn")
+
+    var timeVal = 0;
+    var isRunning = false;
+
+    const display = (num) => {
+        if (num < 0) { return }
+        let a = Math.floor(num / 1000);
+        let b = num % 1000;
+        let c = b / 10;
+        let result = a + ":" + c;
+        if (a < 10) { result = "0" + a + ":" + c };
+        if (b === 0) { result = a + ":00" }
+        if (a < 10 && b === 0) { result = "0" + a + ":00" }
+        if (c < 10) { result = a + ":" + "0" + c }
+        if (a < 10 && c < 10) { result = "0" + a + ":" + "0" + c }
+        return result
+    }
+
+    const setTimer = () => {
+        if (isRunning) {
+            setTimeout(() => {
+                timeVal = timeVal + 10;
+                text.innerText = display(timeVal);
+                return setTimer();
+            }, 10)
+        }
+        else {
+            return
+        }
+    }
+
+    button.onclick = () => {
+        if (isRunning) { return }
+        timeVal = 0;
+        isRunning = true;
+        setTimer();
+    }
+
+    pause.onclick = () => {
+        if (isRunning) {
+            isRunning = false;
+            pause.innerText = "Unpause";
+
+        } else {
+            isRunning = true;
+            pause.innerText = "Pause";
+            setTimer();
+        }
+    };
+
+    stopbtn.onclick = () => {
+        isRunning = false;
+
+   
+    }
+
+
+
+</script>

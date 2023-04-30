@@ -1,0 +1,21 @@
+<input class="input" type="text" />
+<button class="button" type="submit">submit</button>
+<h1 class="text"></h1>
+
+<script>
+    const input = document.querySelector(".input");
+    const text = document.querySelector(".text");
+    const button = document.querySelector(".button")
+    button.onclick = () => {
+        let str = input.value;
+        const strSplit = (str, i = 0, result = ``) => {
+            if (i === str.length) { return }
+            let a = "<h1>";
+            let b = "</h1>";
+            result = a + str[i] + b + result;
+            text.innerHTML = result;
+            return strSplit(str, i + 1,result);
+        }
+        button.onlick = strSplit(str)
+    }
+</script>

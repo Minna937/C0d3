@@ -1,0 +1,28 @@
+<input class="text" type="text" />
+<input class="numInput" type="number" />
+times per second
+<p class="display"></p>
+
+<script>
+    const text = document.querySelector(".text");
+    const numInput = document.querySelector(".numInput");
+    const display = document.querySelector(".display");
+    const button = document.querySelector(".button")
+
+    let nowHide = false;
+    const blink = () => {
+        let str = text.value;
+        let timeWait = 1000 / numInput.valueAsNumber;
+        if (nowHide) {
+            str = '';
+        }
+        display.innerText = str;
+        nowHide = !nowHide;
+        setTimeout(blink, timeWait);
+    }
+
+    blink();
+
+
+
+</script>

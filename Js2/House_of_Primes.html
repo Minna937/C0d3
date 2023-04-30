@@ -1,0 +1,39 @@
+<input class="input" type="number" />
+<button class="button" type="submit">start</button>
+<h1 class="text"></h1>
+
+<script>
+    const input = document.querySelector(".input");
+    const button = document.querySelector(".button");
+    const text = document.querySelector(".text");
+
+   button.onclick =()=>{ 
+    let num = input.valueAsNumber;
+    const printAllPrimes = (num, num2 = 2, result = "") => {
+
+        const isPrime = (num2, i = 2) => {
+            if (num2 <= 1) { return false }
+            if (num2 === 2) { return true }
+            if (num2 <= i) { return true }
+            if (num2 % i === 0) { return false }
+            return isPrime(num2, i + 1)
+        }
+        if (num === 2) {
+            return result = "2..."
+        }
+        if (num < num2) { return result }
+        if (isPrime(num2)) {
+            result = result + num2 + "...";
+            return printAllPrimes(num, num2 + 1, result)
+        }
+        return printAllPrimes(num, num2 + 1, result)
+    }
+
+    text.innerText = printAllPrimes(num);
+   }
+
+
+
+
+
+</script>
