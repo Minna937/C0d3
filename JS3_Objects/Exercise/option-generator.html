@@ -1,0 +1,35 @@
+<h1 class="title">Add Option</h1>
+<input class="input" type="text" />
+<button class="button" type="submit">Add</button>
+<br>
+<select class="container" id="">
+    <option value=""></option>
+</select>
+
+<script>
+    const input = document.querySelector(".input");
+    const button = document.querySelector(".button");
+    const select = document.querySelector(".container");
+    const title = document.querySelector(".title");
+
+    button.onclick = () => {
+
+        const lsData = localStorage.getItem('mydata') || '[]';
+        const dataArray = JSON.parse(lsData)
+        dataArray.push(input.value);
+        localStorage.setItem('mydata', JSON.stringify(dataArray))
+        console.log(dataArray)
+        select.innerHTML = dataArray.reduce((acc, e) => {
+            return (
+             
+                `<option>${e}</option>` + acc
+            )
+
+        }, "")
+
+    }
+
+
+
+
+</script>

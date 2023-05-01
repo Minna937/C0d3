@@ -1,0 +1,56 @@
+<h1>TODO LIST</h1>
+<input class="filterInput" type="text" />
+<button class="filterButton" type="submit">filter</button>
+<input class="input" type="text" />
+<button class="btn" type="submit">Add</button>
+<div class="item"></div>
+
+<script>
+    const input = document.querySelector(".input");
+    const button = document.querySelector(".btn");
+    const item = document.querySelector(".item");
+
+    const filterInput = document.querySelector(".filterInput");
+    const filterButton = document.querySelector(".filterButton");
+
+    const lsData = localStorage.getItem('mydata') || '[]';
+    const dataArray = JSON.parse(lsData)
+
+    filterButton.onclick = () => {
+        const filterValue = filterInput.value;
+        const result = dataArray.filter(e => {
+            return e.includes(filterValue)
+        });
+        render(result);
+    }
+
+    const render = (arr = dataArray) => {
+
+        localStorage.setItem('mydata', JSON.stringify(dataArray))
+        item.innerHTML = arr.reduce((acc, e) => {
+            return (
+                acc + `<h2 class="toDo">${e}</h2>`)
+        }, "");
+
+        const toDelete = document.querySelectorAll('.toDo')
+
+        toDelete.forEach((e, i) => {
+            e.onclick = () => {
+                dataArray.splice(i, 1);
+                render();
+            }
+        })
+
+    }
+
+    button.onclick = () => {
+        dataArray.unshift(input.value);
+        render();
+    }
+
+    render()
+
+
+
+
+</script>

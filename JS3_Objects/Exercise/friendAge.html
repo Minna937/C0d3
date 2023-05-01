@@ -1,0 +1,57 @@
+<h1>Friends List</h1>
+<p>
+    Name: <input class="name" type="text" />
+    Age: <input class="age" type="text" />
+    <button class="btn" type="submit">Add</button>
+</p>
+<div class="container">
+</div>
+
+
+<script>
+    const name = document.querySelector(".name");
+    const age = document.querySelector(".age");
+    const btn = document.querySelector(".btn");
+    const container = document.querySelector(".container");
+
+    const friendsData = localStorage.getItem('names') || '[]';
+    const names = JSON.parse(friendsData);
+
+    const agesData = localStorage.getItem('ages') || '[]';
+    const ages = JSON.parse(agesData)
+
+
+    const render = () => {
+
+        localStorage.setItem('names', JSON.stringify(friendsData));
+        localStorage.setItem('ages', JSON.stringify(agesData));
+
+        container.innerHTML = names.reduce((acc, e, i) => {
+            const rightAge = ages[i];
+            return (
+                acc + `<div>
+                    <h2 class="nameClick">${e}</h2>
+                    </div>`)
+        }, "");
+
+        const nameElement = document.querySelectorAll('.nameClick');
+        nameElement.forEach((e, i) => {
+            e.onclick = () => {
+                alert(ages[i])
+            }
+        })
+
+    }
+
+    btn.onclick = () => {
+
+        names.unshift(name.value);
+        ages.unshift(age.value);
+        render();
+
+    }
+
+
+render()
+
+</script>
