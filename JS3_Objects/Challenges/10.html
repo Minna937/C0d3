@@ -1,0 +1,61 @@
+<div>
+    <button class="preBtn">Previous</button> <button class="nextBtn">Next</button>
+</div>
+<div class="display">
+</div>
+
+<script>
+    const preBtn = document.querySelector(".preBtn");
+    const nextBtn = document.querySelector(".nextBtn");
+    const display = document.querySelector(".display");
+
+    let nextUrl = '';
+    let prevUrl = '';
+
+    const render = (result) => {
+        const htmlStr = result.reduce((acc, e) => {
+            return `${acc}<h1>${e.name}</h1><img src="${e.sprites.front_default}" alt="${e.name}"/>`
+        }, '');
+        display.innerHTML = htmlStr;
+    }
+
+    const fetchData = (url) => {
+        return fetch(url)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                nextUrl = data.next;
+                prevUrl = data.previous;
+                const pokemonPromises = data.results.map(pokemon => {
+                    return fetch(pokemon.url).then(pokeRes => {
+                        return pokeRes.json();
+                    });
+                });
+                return Promise.all(pokemonPromises);
+            });
+    }
+
+    nextBtn.onclick = () => {
+        if (!nextUrl) {
+            return;
+        }
+        fetchData(nextUrl).then(pokemonData => {
+            render(pokemonData);
+        });
+    }
+
+    preBtn.onclick = () => {
+        if (!prevUrl) {
+            return;
+        }
+        fetchData(prevUrl).then(pokemonData => {
+            render(pokemonData);
+        });
+    }
+
+    fetchData('https://pokeapi.co/api/v2/pokemon')
+        .then(pokemonData => {
+            render(pokemonData);
+        });
+</script>
